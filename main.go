@@ -66,11 +66,16 @@ func main() {
 	*/
 
 	//testMinStack()
-	testReversePolishNotation()
+	//testReversePolishNotation()
+	testDailyTemperature()
 }
 
 func testReversePolishNotation() {
 	fmt.Println(Stack.Evaluate([]string{"4", "13", "5", "/", "+"}))
+}
+
+func testDailyTemperature() {
+	fmt.Println(Stack.DailyTemperatures([]int{89, 62, 70, 58, 47, 47, 46, 76, 100, 70}))
 }
 
 func testMinStack() {
