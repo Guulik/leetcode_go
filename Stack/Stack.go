@@ -12,3 +12,8 @@ func (s stack) Pop() (stack, int) {
 	}
 	return s[:l-1], s[l-1]
 }
+
+func (s stack) Top() int {
+	l := len(s)
+	return s[l-1]
+}
