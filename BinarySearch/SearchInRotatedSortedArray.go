@@ -1,4 +1,4 @@
-package main
+package BinarySearch
 
 // блять я чета заебался
 func SearchInRotated(nums []int, target int) int {
