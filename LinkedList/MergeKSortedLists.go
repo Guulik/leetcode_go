@@ -10,35 +10,23 @@ func MergeKSortedLists(lists []*ListNode) *ListNode {
 
 	var head = &ListNode{Val: 0, Next: nil}
 	node := head
-	ended := make([]bool, len(lists))
 	for {
-		var minList *ListNode
+		var minIndex = -1
 		minimum := 2147483647
 		for i, list := range lists {
-			if list == nil {
-				ended[i] = true
-				continue
-			}
-			if list.Val < minimum {
+			if list != nil && list.Val < minimum {
 				minimum = list.Val
-				minList = list
+				minIndex = i
 			}
 		}
-		node.Next = &ListNode{minList.Val, nil}
-		minList = minList.Next
-		node = node.Next
-
-		//check if all lists is ended
-		allEnded := true
-		for _, e := range ended {
-			if e == false {
-				allEnded = false
-				break
-			}
-		}
-		if allEnded {
+		// minIndex remain -1 only if no one list is not nil
+		if minIndex == -1 {
 			break
 		}
+
+		node.Next = lists[minIndex]
+		lists[minIndex] = lists[minIndex].Next
+		node = node.Next
 	}
 	return head.Next
 }
