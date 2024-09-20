@@ -1,15 +1,12 @@
 package LinkedList
 
 func HasCycle(head *ListNode) bool {
-	visited := make(map[*ListNode]bool)
-
-	if head == nil {
-		return false
-	}
+	pointed := make(map[*ListNode]bool)
 	node := head
-	for node.Next != nil {
-		if _, ok := visited[node]; !ok {
-			visited[node] = true
+
+	for node != nil {
+		if beenHere := pointed[node]; !beenHere {
+			pointed[node] = true
 		} else {
 			return true
 		}
