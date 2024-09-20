@@ -1,6 +1,5 @@
 package LinkedList
 
-// support
 func BuildLinkedList(vals []int) *ListNode {
 	head := &ListNode{}
 	node := head
@@ -16,4 +15,15 @@ func BuildLinkedList(vals []int) *ListNode {
 		}
 	}
 	return head
+}
+
+func ListValues(head *ListNode) []int {
+	node := head
+	vals := make([]int, 0, 5)
+
+	for node != nil {
+		vals = append(vals, node.Val)
+		node = node.Next
+	}
+	return vals
 }
