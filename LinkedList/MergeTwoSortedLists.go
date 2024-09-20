@@ -1,8 +1,6 @@
 package LinkedList
 
 func MergeSortedLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	resultHead := &ListNode{}
-
 	if list1 == nil {
 		return list2
 	}
@@ -10,31 +8,38 @@ func MergeSortedLists(list1 *ListNode, list2 *ListNode) *ListNode {
 		return list1
 	}
 
-	if list1.Val >= list2.Val {
-		resultHead = list2
-		list2 = list2.Next
-	} else {
+	var resultHead *ListNode
+	//нам нужно какое-то начальное значение для головешки.
+	if list1.Val <= list2.Val {
 		resultHead = list1
+		//если первое значение взяли, значит повторно его использовать при переборе нельзя. Сдвигаем голову на 1 вперед
 		list1 = list1.Next
+	} else {
+		resultHead = list2
+		//если первое значение взяли, значит повторно его использовать при переборе нельзя. Сдвигаем голову на 1 вперед
+		list2 = list2.Next
 	}
-	current := resultHead
+	resNode := resultHead
 
 	for list1 != nil && list2 != nil {
 		if list1.Val <= list2.Val {
-			current.Next = list1
+			resNode.Next = list1
+			//двигаемся вперед по 1 листу
 			list1 = list1.Next
 		} else {
-			current.Next = list2
+			resNode.Next = list2
+			//двигаемся вперед по 2 листу
 			list2 = list2.Next
 		}
-		current = current.Next
+		resNode = resNode.Next
 	}
 
-	if list1 == nil {
-		current.Next = list2
-	} else {
-		current.Next = list1
+	// put the remaining list
+	if list1 != nil {
+		resNode.Next = list1
 	}
-
+	if list2 != nil {
+		resNode.Next = list2
+	}
 	return resultHead
 }
