@@ -6,39 +6,21 @@ func SearchInRotated(nums []int, target int) int {
 	middle := (left + right) / 2
 
 	for left <= right {
-		switch target {
-		case nums[left]:
-			return left
-		case nums[right]:
-			return right
-		case nums[middle]:
+		if nums[middle] == target {
 			return middle
 		}
-		if nums[left] > target {
-			if nums[middle] > target {
-				right = middle - 1
-				middle = (left + right) / 2
-				continue
-			}
-			left = middle + 1
-			middle = (left + right) / 2
-			continue
-		}
-		if nums[right] < target {
-			if nums[middle] < target {
+		if nums[left] <= nums[middle] {
+			if nums[middle] < target || target < nums[left] {
 				left = middle + 1
-				middle = (left + right) / 2
-				continue
+			} else {
+				right = middle - 1
 			}
-			right = middle - 1
-			middle = (left + right) / 2
-			continue
-		}
-		if nums[middle] < target {
-			left = middle + 1
-		}
-		if nums[middle] > target {
-			right = middle - 1
+		} else {
+			if target < nums[middle] || target > nums[right] {
+				right = middle - 1
+			} else {
+				left = middle + 1
+			}
 		}
 		middle = (left + right) / 2
 	}
