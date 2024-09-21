@@ -2,31 +2,17 @@ package Tries
 
 func LexicalOrder(n int) []int {
 	lexica := make([]int, 0, n)
-
-	for series := 1; len(lexica) < n; series++ {
-		numbre := series
-		for numbre <= n && getFirstDigit(numbre) == series && len(lexica) < n {
-			lexica = append(lexica, numbre)
-			for numbre*10 <= n {
-				numbre *= 10
-				lexica = append(lexica, numbre)
+	current := 1
+	for range n {
+		lexica = append(lexica, current)
+		if current*10 <= n {
+			current *= 10
+		} else {
+			for current%10 == 9 || current >= n {
+				current /= 10
 			}
-			numbre += 1
+			current += 1
 		}
 	}
 	return lexica
-}
-
-func getFirstDigit(n int) int {
-	num := n
-	count := 0
-	for num > 0 {
-		num /= 10
-		count++
-	}
-	divider := 1
-	for range count - 1 {
-		divider *= 10
-	}
-	return n / divider
 }
