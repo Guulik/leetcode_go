@@ -1,31 +1,46 @@
 package BinarySearch
 
-// блять я чета заебался
 func SearchInRotated(nums []int, target int) int {
-	lefty := 0
-	righty := len(nums) - 1
-	current := lefty + righty/2
+	left := 0
+	right := len(nums) - 1
+	middle := (left + right) / 2
 
-	for lefty < righty {
-		if target == nums[current] {
-			return current
+	for left <= right {
+		switch target {
+		case nums[left]:
+			return left
+		case nums[right]:
+			return right
+		case nums[middle]:
+			return middle
 		}
-		if target < nums[current] {
-			if nums[lefty] < target {
-				righty = current - 1
+		if nums[left] > target {
+			if nums[middle] > target {
+				right = middle - 1
+				middle = (left + right) / 2
+				continue
 			}
-			if nums[righty] > target {
-				lefty = current + 1
-			}
+			left = middle + 1
+			middle = (left + right) / 2
+			continue
 		}
-		if target > nums[current] {
-			if nums[righty] < target && nums[lefty] < target {
-				righty = current - 1
+		if nums[right] < target {
+			if nums[middle] < target {
+				left = middle + 1
+				middle = (left + right) / 2
+				continue
 			}
-			if nums[righty] > target && nums[lefty] > target {
-				lefty = current + 1
-			}
+			right = middle - 1
+			middle = (left + right) / 2
+			continue
 		}
+		if nums[middle] < target {
+			left = middle + 1
+		}
+		if nums[middle] > target {
+			right = middle - 1
+		}
+		middle = (left + right) / 2
 	}
-	return 228
+	return -1
 }
