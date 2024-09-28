@@ -1,32 +1,36 @@
 package TwoPointers
 
-import (
-	"slices"
-)
+import "slices"
+
+// идея в том, чтобы прийти к TwoSum Arrays Sorted. А там уже легко решается двумя поинтерами
+// крч сначала сортируем массив, потом в большом цикле прогоняем X и для него ищем twoSum = -X
+// правда я не оч помню и представляю, как не допустить дубликатов для триплетов. это я подсмотрю
 
 func ThreeSum(nums []int) [][]int {
-	sums := [][]int{}
+	sums := make([][]int, 0, 3)
 	slices.Sort(nums)
-	for i, fixed := range nums {
-
-		if i > 0 && fixed == nums[i-1] {
+	for i := range len(nums) - 1 {
+		if nums[i] > 0 {
+			return sums
+		}
+		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
-
-		l, r := i+1, len(nums)-1
-		for l < r {
-			threeSum := fixed + nums[l] + nums[r]
-			if threeSum > 0 {
-				r--
+		left := i + 1
+		right := len(nums) - 1
+		for left < right {
+			sum := nums[left] + nums[right] + nums[i]
+			if sum > 0 {
+				right--
 			}
-			if threeSum < 0 {
-				l++
+			if sum < 0 {
+				left++
 			}
-			if threeSum == 0 {
-				sums = append(sums, []int{fixed, nums[l], nums[r]})
-				l++
-				for nums[l] == nums[l-1] && l < r {
-					l++
+			if sum == 0 {
+				sums = append(sums, []int{nums[i], nums[left], nums[right]})
+				left++
+				if nums[left] == nums[left-1] && left < right {
+					left++
 				}
 			}
 		}
