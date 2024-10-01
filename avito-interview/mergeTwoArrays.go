@@ -18,12 +18,17 @@ func MergeTwoSortedArrays(nums1 []int, nums2 []int, m int, n int) []int {
 			sec++
 		}
 	}
-	if first == m-1 {
-
-		res = append(res, nums2...)
+	if first == m {
+		for sec < n {
+			res = append(res, nums2[sec])
+			sec++
+		}
 	}
-	if sec == n-1 {
-		res = append(res, nums1...)
+	if sec == n {
+		for first < m {
+			res = append(res, nums1[first])
+			first++
+		}
 	}
 	return res
 }
