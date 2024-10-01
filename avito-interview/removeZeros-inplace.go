@@ -6,16 +6,15 @@ func RemoveZeroes(nums []int) []int {
 	for slow < len(nums) {
 		if nums[slow] == 0 {
 			fast = slow
-			for nums[fast] == 0 && fast < len(nums) {
+			for nums[fast] == 0 && fast < len(nums)-1 {
 				fast++
 			}
 			if nums[fast] != 0 {
 				nums[slow] = nums[fast]
-				slow++
+				nums[fast] = 0
 			}
-		} else {
-			slow++
 		}
+		slow++
 	}
 	return nums
 }
